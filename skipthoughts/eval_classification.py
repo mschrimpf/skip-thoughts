@@ -1,7 +1,6 @@
 # Experiment scripts for binary classification benchmarks (e.g. MR, CR, MPQA, SUBJ)
 
 import numpy as np
-import sys
 from . import nbsvm
 from . import dataset_handler
 
@@ -102,11 +101,11 @@ def compute_nb(X, y, Z):
     labels = [int(t) for t in y]
     ptrain = [X[i] for i in range(len(labels)) if labels[i] == 0]
     ntrain = [X[i] for i in range(len(labels)) if labels[i] == 1]
-    poscounts = nbsvm.build_dict(ptrain, [1,2])
-    negcounts = nbsvm.build_dict(ntrain, [1,2])
+    poscounts = nbsvm.build_dict(ptrain, [1, 2])
+    negcounts = nbsvm.build_dict(ntrain, [1, 2])
     dic, r = nbsvm.compute_ratio(poscounts, negcounts)
-    trainX = nbsvm.process_text(X, dic, r, [1,2])
-    devX = nbsvm.process_text(Z, dic, r, [1,2])
+    trainX = nbsvm.process_text(X, dic, r, [1, 2])
+    devX = nbsvm.process_text(Z, dic, r, [1, 2])
     return trainX, devX
 
 
