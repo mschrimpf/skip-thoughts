@@ -24,15 +24,15 @@ def evaluate(encoder, k=10, seed=1234, evalcv=True, evaltest=False, loc='./data/
 
     print('Computing training skipthoughts...')
     trainF = encoder.encode(train, verbose=False, use_eos=False)
-    
+
     if evalcv:
         print('Running cross-validation...')
-        interval = [2**t for t in range(0,9,1)]     # coarse-grained
+        interval = [2 ** t for t in range(0, 9, 1)]  # coarse-grained
         C = eval_kfold(trainF, train_labels, k=k, scan=interval, seed=seed)
 
     if evaltest:
         if not evalcv:
-            C = 128     # Best parameter found from CV
+            C = 128  # Best parameter found from CV
 
         print('Computing testing skipthoughts...')
         testF = encoder.encode(test, verbose=False, use_eos=False)
@@ -51,10 +51,10 @@ def load_data(loc='./data/'):
     train, test = [], []
     with open(os.path.join(loc, 'train_5500.label'), 'rb') as f:
         for line in f:
-            train.append(line.strip())
+            train.append(line.decode('latin1').strip())
     with open(os.path.join(loc, 'TREC_10.label'), 'rb') as f:
         for line in f:
-            test.append(line.strip())
+            test.append(line.decode('latin1').strip())
     return train, test
 
 
@@ -83,7 +83,7 @@ def prepare_labels(labels):
     return idxlabels
 
 
-def eval_kfold(features, labels, k=10, scan=[2**t for t in range(0,9,1)], seed=1234):
+def eval_kfold(features, labels, k=10, scan=[2 ** t for t in range(0, 9, 1)], seed=1234):
     """
     Perform k-fold cross validation
     """
@@ -96,7 +96,6 @@ def eval_kfold(features, labels, k=10, scan=[2**t for t in range(0,9,1)], seed=1
         scanscores = []
 
         for train, test in kf:
-
             # Split data
             X_train = features[train]
             y_train = labels[train]
@@ -120,3 +119,13 @@ def eval_kfold(features, labels, k=10, scan=[2**t for t in range(0,9,1)], seed=1
     print((s_ind, s))
     return s
 
+
+if __name__ == '__main__':
+    import nltk
+    nltk.download('punkt')
+
+    import skipthoughts
+
+    model = skipthoughts.load_model()
+    encoder = skipthoughts.Encoder(model)
+    evaluate(encoder, evalcv=False, evaltest=True)
