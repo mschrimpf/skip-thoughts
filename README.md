@@ -2,17 +2,13 @@
 
 Sent2Vec encoder and training code from the paper [Skip-Thought Vectors](http://arxiv.org/abs/1506.06726).
 
+Adjusted to Python3.
+Make sure to run with `MKL_THREADING_LAYER=GNU python` to get Theano to run with MKL.
+
 ## Dependencies
 
-This code is written in python. To use it you will need:
+Create conda environment with `conda env create -f environment.yml`.
 
-* Python 2.7
-* Theano 0.7
-* A recent version of [NumPy](http://www.numpy.org/) and [SciPy](http://www.scipy.org/)
-* [scikit-learn](http://scikit-learn.org/stable/index.html)
-* [NLTK 3](http://www.nltk.org/)
-* [Keras](https://github.com/fchollet/keras) (for Semantic-Relatedness experiments only)
-* [gensim](https://radimrehurek.com/gensim/) (for vocabulary expansion when training new models)
 
 ## Getting started
 

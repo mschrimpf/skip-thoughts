@@ -23,7 +23,7 @@ def load_data(encoder, name, loc='./data/', seed=1234):
     text, labels = shuffle_data(pos+neg, labels, seed=seed)
     z['text'] = text
     z['labels'] = labels
-    print 'Computing skip-thought vectors...'
+    print('Computing skip-thought vectors...')
     features = encoder.encode(text, verbose=False)
     return z, features
 

@@ -1,0 +1,13 @@
+name: skip-thoughts
+channels:
+- defaults
+dependencies:
+  - python>=3.6
+  - theano
+  - numpy
+  - scipy
+  - scikit-learn
+  - nltk
+  - keras
+  - gensim
+  - pip:
