@@ -17,21 +17,14 @@ from nltk.tokenize import word_tokenize
 
 profile = False
 
-#-----------------------------------------------------------------------------#
-# Specify model and table locations here
-#-----------------------------------------------------------------------------#
-path_to_models = 'models/'
-path_to_tables = path_to_models
-#-----------------------------------------------------------------------------#
 
-path_to_umodel = path_to_models + 'uni_skip.npz'
-path_to_bmodel = path_to_models + 'bi_skip.npz'
-
-
-def load_model():
+def load_model(path_to_models='models/', path_to_tables='models/'):
     """
     Load the model with saved tables
     """
+    path_to_umodel = path_to_models + 'uni_skip.npz'
+    path_to_bmodel = path_to_models + 'bi_skip.npz'
+
     # Load model options
     print('Loading model parameters...')
     with open('%s.pkl'%path_to_umodel, 'rb') as f:
@@ -56,7 +49,7 @@ def load_model():
 
     # Tables
     print('Loading tables...')
-    utable, btable = load_tables()
+    utable, btable = load_tables(path_to_tables=path_to_tables)
 
     # Store everything we need in a dictionary
     print('Packing up...')
@@ -71,7 +64,7 @@ def load_model():
     return model
 
 
-def load_tables():
+def load_tables(path_to_tables='models/'):
     """
     Load the tables
     """
