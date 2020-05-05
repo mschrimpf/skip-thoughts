@@ -18,7 +18,7 @@ from nltk.tokenize import word_tokenize
 profile = False
 
 
-def load_model(path_to_models='models/', path_to_tables='models/'):
+def load_model(path_to_models='models/', path_to_tables='models/', load_weights=True):
     """
     Load the model with saved tables
     """
@@ -34,10 +34,12 @@ def load_model(path_to_models='models/', path_to_tables='models/'):
 
     # Load parameters
     uparams = init_params(uoptions)
-    uparams = load_params(path_to_umodel, uparams)
+    if load_weights:
+        uparams = load_params(path_to_umodel, uparams)
     utparams = init_tparams(uparams)
     bparams = init_params_bi(boptions)
-    bparams = load_params(path_to_bmodel, bparams)
+    if load_weights:
+        bparams = load_params(path_to_bmodel, bparams)
     btparams = init_tparams(bparams)
 
     # Extractor functions
